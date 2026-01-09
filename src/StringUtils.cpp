@@ -1,4 +1,5 @@
 #include "StringUtils.h"
+#include <cctype>
 
 namespace StringUtils{
 
@@ -8,8 +9,9 @@ std::string Slice(const std::string &str, ssize_t start, ssize_t end) noexcept{
 }
 
 std::string Capitalize(const std::string &str) noexcept{
-    // Replace code here
-    return "";
+    std::string Temp = str;
+    Temp[0] = toupper(Temp[0]);
+    return Temp;
 }
 
 std::string Upper(const std::string &str) noexcept{

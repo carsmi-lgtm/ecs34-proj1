@@ -6,7 +6,7 @@ TEST(StringUtilsTest, SliceTest){
 }
 
 TEST(StringUtilsTest, Capitalize){
-    
+    EXPECT_EQ(StringUtils::Capitalize("hello"),std::string("Hello"));
 }
 
 TEST(StringUtilsTest, Upper){
