@@ -24,13 +24,13 @@ TEST_LDFLAGS = $(LDFLAGS) -lgtest -lgtest_main -lpthread
 
 
 
-TEST_OBJ_FILES = $(TESTOBJ_DIR)/StringUtilsTest.o $(OBJ_DIR)/StringUtils.o
+TEST_OBJ_FILES = $(TESTOBJ_DIR)/StringUtilsTest.o $(TESTOBJ_DIR)/StringUtils.o
 
 TEST_TARGET = $(TESTBIN_DIR)/teststrutils
 
 
 
-all: directories $(TEST_TARGET)
+all: directories runtests
 
 runtests: $(TEST_TARGET)
 	$(TEST_TARGET)
@@ -41,11 +41,11 @@ runtests: $(TEST_TARGET)
 $(TEST_TARGET): $(TEST_OBJ_FILES)
 	$(CXX) $(TEST_CFLAGS) $(TEST_CPPFLAGS) $(TEST_OBJ_FILES) $(TEST_LDFLAGS) -o $(TEST_TARGET)
 
-$(OBJ_DIR)/StringUtils.o: $(SRC_DIR)/StringUtils.cpp | directories
-	$(CXX) $(TEST_CFLAGS) $(TEST_CPPFLAGS) $(DEFINES) $(INCLUDES) -c $< -o $@
+$(TESTOBJ_DIR)/StringUtils.o: $(SRC_DIR)/StringUtils.cpp
+	$(CXX) $(TEST_CFLAGS) $(TEST_CPPFLAGS) $(DEFINES) $(INCLUDES) -c $(SRC_DIR)/StringUtils.cpp -o $(TESTOBJ_DIR)/StringUtils.o
 
-$(TESTOBJ_DIR)/StringUtilsTest.o: $(TESTSRC_DIR)/StringUtilsTest.cpp | directories
-	$(CXX) $(TEST_CFLAGS) $(TEST_CPPFLAGS) $(DEFINES) $(INCLUDES) -c $< -o $@
+$(TESTOBJ_DIR)/StringUtilsTest.o: $(TESTSRC_DIR)/StringUtilsTest.cpp
+	$(CXX) $(TEST_CFLAGS) $(TEST_CPPFLAGS) $(DEFINES) $(INCLUDES) -c $(TESTSRC_DIR)/StringUtilsTest.cpp -o $(TESTOBJ_DIR)/StringUtilsTest.o
 
 
 .PHONY: directories

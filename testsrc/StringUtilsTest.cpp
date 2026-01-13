@@ -13,6 +13,7 @@ TEST(StringUtilsTest, SliceTest){
     EXPECT_EQ(StringUtils::Slice("HelloWorld", -13, 2), std::string("He"));
     EXPECT_EQ(StringUtils::Slice("HelloWorld", 4, 15), std::string("oWorld"));
     EXPECT_EQ(StringUtils::Slice("a",0,1), std::string("a"));
+    EXPECT_EQ(StringUtils::Slice("HelloWorld", 5, 3), std::string(""));
 }
 
 TEST(StringUtilsTest, Capitalize){
@@ -100,9 +101,11 @@ TEST(StringUtilsTest, Replace){
     EXPECT_EQ(StringUtils::Replace("HelloWorld", "l", "l"),std::string("HelloWorld"));
     EXPECT_EQ(StringUtils::Replace("HelloWorld", "Hello", "World"),std::string("WorldWorld"));
     EXPECT_EQ(StringUtils::Replace("HelloWorld", "o", "x"),std::string("HellxWxrld"));
+    EXPECT_EQ(StringUtils::Replace("HelloWorld", "", "x"),std::string("HelloWorld"));
 }
 
 TEST(StringUtilsTest, Split){
+
     std::vector<std::string> v1 = {"Hello","World"};
     EXPECT_EQ(StringUtils::Split("Hello World", " "),v1);
 
@@ -150,23 +153,25 @@ TEST(StringUtilsTest, Join){
 }
 
 TEST(StringUtilsTest, ExpandTabs){
-    EXPECT_EQ(StringUtils::ExpandTabs(""), "");
-    EXPECT_EQ(StringUtils::ExpandTabs("\t"), "    ");
-    EXPECT_EQ(StringUtils::ExpandTabs("\t\t\t"), "            ");
-    EXPECT_EQ(StringUtils::ExpandTabs("Hello\tWorld"), "Hello    World");
-    EXPECT_EQ(StringUtils::ExpandTabs("\tHelloWorld"), "    HelloWorld");
-    EXPECT_EQ(StringUtils::ExpandTabs("HelloWorld\t"), "HelloWorld    ");
+    EXPECT_EQ(StringUtils::ExpandTabs("",4), "");
+    EXPECT_EQ(StringUtils::ExpandTabs("\t",4), "    ");
+    EXPECT_EQ(StringUtils::ExpandTabs("\t\t\t",3), "         ");
+    EXPECT_EQ(StringUtils::ExpandTabs("Hello\tWorld",5), "Hello     World");
+    EXPECT_EQ(StringUtils::ExpandTabs("\tHelloWorld",4), "    HelloWorld");
+    EXPECT_EQ(StringUtils::ExpandTabs("HelloWorld\t",4), "HelloWorld    ");
 }
 
 TEST(StringUtilsTest, EditDistance){
-    EXPECT_EQ(StringUtils::EditDistance("",""),0);
-    EXPECT_EQ(StringUtils::EditDistance("str",""),3);
-    EXPECT_EQ(StringUtils::EditDistance("","string"),5);
-    EXPECT_EQ(StringUtils::EditDistance("str","str"),0);
-    EXPECT_EQ(StringUtils::EditDistance("str","word"),4);
-    EXPECT_EQ(StringUtils::EditDistance("str","string"),3);
-    EXPECT_EQ(StringUtils::EditDistance("strings","str"),4);
-    EXPECT_EQ(StringUtils::EditDistance("str",""),3);
-    EXPECT_EQ(StringUtils::EditDistance("horse","hone"),2);
-    EXPECT_EQ(StringUtils::EditDistance("editdistancetesting","letstesteditdistance"),14);
+    EXPECT_EQ(StringUtils::EditDistance("","",true),0);
+    EXPECT_EQ(StringUtils::EditDistance("str","",true),3);
+    EXPECT_EQ(StringUtils::EditDistance("","string",true),6);
+    EXPECT_EQ(StringUtils::EditDistance("str","str",true),0);
+    EXPECT_EQ(StringUtils::EditDistance("str","word",true),3);
+    EXPECT_EQ(StringUtils::EditDistance("str","string",true),3);
+    EXPECT_EQ(StringUtils::EditDistance("strings","str",true),4);
+    EXPECT_EQ(StringUtils::EditDistance("str","",true),3);
+    EXPECT_EQ(StringUtils::EditDistance("horse","hone",true),2);
+    EXPECT_EQ(StringUtils::EditDistance("editdistancetesting","letstesteditdistance",true),14);
+    EXPECT_EQ(StringUtils::EditDistance("HOrse","hone",true),2);
+    EXPECT_EQ(StringUtils::EditDistance("HOrse","hone",false),4);
 }
