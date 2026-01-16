@@ -13,7 +13,8 @@ All function definitions are located in the `StringUtils.cpp` file, and `StringU
 
 ## Sources
 
-Referenced https://cplusplus.com/reference/string/string/ to see all modifiers and operations for the std::string class, used to implement the functions. 
+Referenced https://cplusplus.com/reference/string/string/ to see all modifiers and operations for the std::string class, used to implement the functions.  
+Referenced https://en.wikipedia.org/wiki/Levenshtein_distance for iterative matrix pseudocode for Levenshtein Distance.
 
 ## Project Structure
 
